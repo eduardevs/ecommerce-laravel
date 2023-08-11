@@ -1,0 +1,29 @@
+# Created by https://www.toptal.com/developers/gitignore/api/laravel
+# Edit at https://www.toptal.com/developers/gitignore?templates=laravel
+
+### Laravel ###
+comerio-app/vendor/
+comerio-app/node_modules/
+comerio-app/npm-debug.log
+comercio-app/yarn-error.log
+
+# Laravel 4 specific
+comercio-app/bootstrap/compiled.php
+comercio-app/app/storage/
+
+# Laravel 5 & Lumen specific
+comercio-app/public/storage
+comercio-app/public/hot
+
+# Laravel 5 & Lumen specific with changed public path
+comercio-app/public_html/storage
+comercio-app/public_html/hot
+
+comercio-app/storage/*.key
+.env
+comercio-app/Homestead.yaml
+comercio-app/Homestead.json
+comercio-app/.vagrant
+comercio-app/.phpunit.result.cache
+
+# End of https://www.toptal.com/developers/gitignore/api/laravel
