@@ -8,58 +8,20 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function viewproductspage()
     {
-        $products = Product::all();
-
-        return view('products.index', ['products' => $products]);
-
+        return view('admin.products');
     }
-
-    public function create()
+    public function viewaddproduct()
     {
-        return view('products.create');
+        return view('admin.addproduct');
     }
-
-    public function store(Request $request)
+    public function vieweditproduct()
     {
-        $data = $request->validate([
-            'name' => 'required',
-            'qty' => 'required|numeric',
-            'price' => 'required|decimal:0,2',
-            'description' => 'nullable'
-        ]);
-
-        $newProduct = Product::create($data);
-        return redirect(route('product.index'));
+        return view('admin.editproduct');
     }
-
-    public function edit(Product $product)
+    public function vieworderspage()
     {
-
-        // dd($product);
-
-        // return redirect(route('product.index'));
-        return view('products.edit', ['product' => $product]);
+        return view('admin.orders');
     }
-
-    public function update(Product $product, Request $request) {
-        $data = $request->validate([
-            'name' => 'required',
-            'qty' => 'required|numeric',
-            'price' => 'required|decimal:0,2',
-            'description' => 'nullable'
-        ]);
-
-        $product->update($data);
-
-        return redirect(route('product.index'))->with('success', 'Product updated succesfully');
-    }
-
-    public function destroy(Product $product) {
-        $product->delete();
-
-        return redirect(route('product.index'))->with('success', 'Product deleted succesfully');
-    }
-
 }
