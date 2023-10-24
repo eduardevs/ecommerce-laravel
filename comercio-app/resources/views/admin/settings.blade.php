@@ -12,15 +12,17 @@
                 <h1>Website Settings</h1>
             </div>
         </section>
-        <section class="content" style="min-height:auto;margin-bottom: -30px;">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="callout callout-success">
-                        <p>Payment Settings is updated successfully.</p>
+        @if (Session::has('status'))
+            <section class="content" style="min-height:auto;margin-bottom: -30px;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="callout callout-success">
+                            <p>{{ Session::get('status') }}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        @endif
         <section class="content">
             <div class="row">
                 <div class="col-md-12">
@@ -39,15 +41,28 @@
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="tab_1">
-                                <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+                                <form class="form-horizontal"
+                                    action="{{ $logoimage ? url('admin/updatelogo', [$logoimage->id]) : url('admin/savelogo') }}"
+                                    method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    @if ($logoimage)
+                                        @method('PUT')
+                                    @endif
+
                                     <div class="box box-info">
                                         <div class="box-body">
                                             <div class="form-group">
                                                 <label for="" class="col-sm-2 control-label">Existing
                                                     Photo</label>
                                                 <div class="col-sm-6" style="padding-top:6px;">
-                                                    <img src="{{ asset('backend/uploads/logo.png') }}"
-                                                        class="existing-photo" style="height:80px;">
+                                                    @if ($logoimage)
+                                                        <img src="{{ asset('/storage/logoimage/' . $logoimage->photo_logo) }}"
+                                                            alt="{{ $logoimage->photo_logo }}" class="existing-photo"
+                                                            style="height:80px;">
+                                                    @else
+                                                        <img src="{{ asset('/storage/defaultimg/noimg.png') }}"
+                                                            alt="no-img" class="existing-photo" style="height:80px;">
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -60,7 +75,7 @@
                                                 <label for="" class="col-sm-2 control-label"></label>
                                                 <div class="col-sm-6">
                                                     <button type="submit" class="btn btn-success pull-left"
-                                                        name="form1">Update Logo</button>
+                                                        name="form1">{{ $logoimage ? 'Update Logo' : 'Save Logo' }}</button>
                                                 </div>
                                             </div>
                                         </div>

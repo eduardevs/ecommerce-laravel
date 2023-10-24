@@ -2,13 +2,15 @@
 
 // use App\Http\Controllers\ProductController;
 
-use App\Http\Controllers\ClientController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\SliderController;
-
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ShopController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\SliderController;
+use App\Http\Controllers\ProductController;
+
+use App\Http\Controllers\SettingController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,9 +57,11 @@ Route::get('/orders', [ClientController::class, 'vieworderspage']);
 
 Route::get('/productbycategory', [ClientController::class, 'viewproductbycategorypage']);
 
-Route::get('/productdetails', [ClientController::class, 'viewproductdetailspage']);
+Route::get('/productdetails/{id}', [ClientController::class, 'viewproductdetailspage']);
 
-Route::get('/productsearch', [ClientController::class, 'viewsearchproduct']);
+Route::get('/productdetails/{id}', [ClientController::class, 'viewproductdetailspage']);
+
+Route::post('/addproductcart/{id}', [ClientController::class, 'addproductcart']);
 
 Route::get('/productsearch', [AdminController::class, 'viewsearchproduct']);
 
@@ -90,16 +94,36 @@ Route::get('admin/editshipping', [AdminController::class, 'vieweditshippingpage'
 
 Route::get('admin/toplevelcategory', [CategoryController::class, 'viewtoplevelcategory']);
 
+// *
 
 Route::get('admin/addtoplevelcategory', [CategoryController::class, 'viewaddtoplevelcategory']);
 
-Route::get('admin/edittoplevelcategory', [CategoryController::class, 'viewedittoplevelcategory']);
+Route::get('admin/edittoplevelcategory/{id}', [CategoryController::class, 'viewedittoplevelcategory']);
+
+Route::put('admin/updatetoplevelcategory/{id}', [CategoryController::class, 'updatetoplevelcategory']);
+
+Route::post('admin/savetoplevelcategory', [CategoryController::class, 'savetoplevelcat']);
+// deletetoplevelcategory
+Route::delete('admin/deletetoplevelcategory/{id}', [CategoryController::class, 'deletetoplevelcategory']);
 
 Route::get('admin/midlevelcategory', [CategoryController::class, 'viewmidlevelcategory']);
 
-Route::get('admin/editmidlevelcategory', [CategoryController::class, 'vieweditmidlevelcategory']);
-
 Route::get('admin/addmidlevelcategory', [CategoryController::class, 'viewaddmidlevelcategory']);
+
+Route::post('admin/savemiddlecategory', [CategoryController::class, 'savemiddlecategory']);
+
+Route::get('admin/editmiddlelevelcategory/{id}', [CategoryController::class, 'vieweditmiddlecategory']);
+
+Route::put('admin/updatemidcategory/{id}', [CategoryController::class, 'updatemidcategory']);
+
+Route::delete('admin/deletemidlevelcategory/{id}', [CategoryController::class, 'deletemidlevelcategory']);
+
+
+
+Route::post('admin/saveproduct', [ProductController::class, 'saveproduct']);
+
+Route::delete('admin/deleteproduct/{id}', [ProductController::class, 'deleteproduct']);
+// Route::get('admin/editmidlevelcategory', [CategoryController::class, 'vieweditmidlevelcategory']);
 
 Route::get('admin/endlevelcategory', [CategoryController::class, 'viewendlevelcategory']);
 
@@ -143,6 +167,14 @@ Route::get('admin/subscribers', [AdminController::class, 'viewsubscriberspage'])
 
 Route::get('admin/profile', [AdminController::class, 'viewprofilepage']);
 
+// Functions
+
+Route::post('admin/savelogo', [SettingController::class, 'savelogo']);
+
+Route::put('admin/updatelogo/{id}', [SettingController::class, 'updatelogo']);
+
+// ?
+// 
 
 
 

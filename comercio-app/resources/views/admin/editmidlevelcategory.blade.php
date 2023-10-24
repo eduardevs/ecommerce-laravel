@@ -11,26 +11,38 @@
                 <h1>Edit Mid Level Category</h1>
             </div>
             <div class="content-header-right">
-                <a href="mid-category.php" class="btn btn-primary btn-sm">View All</a>
+                <a href="{{ url('admin/midlevelcategory') }}" class="btn btn-primary btn-sm">View All</a>
             </div>
         </section>
+        @if (Session::has('status'))
+            <section class="content" style="min-height:auto;margin-bottom: -30px;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="callout callout-success">
+                            <p>{{ Session::get('status') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        @endif
         <section class="content">
             <div class="row">
                 <div class="col-md-12">
-                    <form class="form-horizontal" action="" method="post">
+                    <form class="form-horizontal" action="{{ url('admin/updatemidcategory', [$middlelevelcategory->id]) }}" method="post">
+                        @csrf
+                        @method('PUT')
                         <div class="box box-info">
                             <div class="box-body">
                                 <div class="form-group">
                                     <label for="" class="col-sm-3 control-label">Top Level Category Name
                                         <span>*</span></label>
                                     <div class="col-sm-4">
-                                        <select name="tcat_id" class="form-control select2">
-                                            <option value="">Select Top Level Category</option>
-                                            <option value="4">Electronics</option>
-                                            <option value="5" selected>Health and Household</option>
-                                            <option value="3">Kids</option>
-                                            <option value="1">Men</option>
-                                            <option value="2">Women</option>
+                                        <select name="tcat_id" class="form-control select2" required>
+                                            @foreach ($toplevelcategories as $toplevelcategory)
+                                                <option value="{{ $toplevelcategory->tcat_name }}" selected>
+                                                    {{ $toplevelcategory->tcat_name }}
+                                            @endforeach
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
@@ -38,7 +50,8 @@
                                     <label for="" class="col-sm-3 control-label">Mid Level Category Name
                                         <span>*</span></label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control" name="mcat_name" value="Household">
+                                        <input type="text" class="form-control" name="mcat_name"
+                                            value="{{ $middlelevelcategory->mcat_name }}" required>
                                     </div>
                                 </div>
                                 <div class="form-group">

@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('logoimages', function (Blueprint $table) {
+        Schema::create('middlelevelcategories', function (Blueprint $table) {
             $table->id();
-            $table->string("photo_logo");
+            $table->string('tcat_id');
+            $table->string('mcat_name');
             $table->timestamps();
         });
     }
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('logoimages');
+        Schema::dropIfExists('middlelevelcategories');
     }
 };

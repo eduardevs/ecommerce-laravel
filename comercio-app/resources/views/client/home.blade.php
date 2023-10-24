@@ -156,26 +156,30 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="product-carousel">
-                        <div class="item">
-                            <div class="thumb">
-                                <div class="photo"
-                                    style="background-image:url({{ asset('frontend/assets/uploads/product-featured-84.jpg') }});">
+                        @foreach ($featuredproducts as $featuredproduct)
+                            <div class="item">
+                                <div class="thumb">
+                                    <div class="photo"
+                                        style="background-image:url({{ asset('/storage/productimages/' . $featuredproduct->p_featured_photo) }});">
+                                    </div>
+                                    <div class="overlay"></div>
                                 </div>
-                                <div class="overlay"></div>
-                            </div>
-                            <div class="text">
-                                <h3><a href="product.php?id=84">Loose-fit One-Shoulder Cutout Rib Knit Maxi Dress</a></h3>
-                                <h4>
-                                    $39
-                                    <del>
-                                        $51 </del>
-                                </h4>
-                                <div class="rating">
+                                <div class="text">
+                                    <h3><a href="product.php?id=84">{{ $featuredproduct->p_name }}</a>
+                                    </h3>
+                                    <h4>
+                                        {{ $featuredproduct->p_current_price }}
+                                        <del> {{ $featuredproduct->p_old_price }}
+                                        </del>
+                                    </h4>
+                                    <div class="rating">
+                                    </div>
+                                    <p><a href="{{ url('productdetails/' . $featuredproduct->id) }}"><i
+                                                class="fa fa-shopping-cart"></i> Add to Cart</a></p>
                                 </div>
-                                <p><a href="product.php?id=84"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
                             </div>
-                        </div>
-                        <div class="item">
+                        @endforeach
+                        {{-- <div class="item">
                             <div class="thumb">
                                 <div class="photo"
                                     style="background-image:url({{ asset('frontend/assets/uploads/product-featured-86.jpg') }});">
@@ -252,7 +256,7 @@
                                 </div>
                                 <p><a href="product.php?id=97"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

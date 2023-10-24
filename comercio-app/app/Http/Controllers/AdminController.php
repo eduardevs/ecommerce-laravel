@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
+use App\Models\Logoimage;
 
 class AdminController extends Controller
 {
@@ -13,7 +15,9 @@ class AdminController extends Controller
 
     public function viewadminsettings()
     {
-        return view('admin.settings');
+        $logoImg = Logoimage::first();
+
+        return view('admin.settings')->with("logoimage", $logoImg);
     }
 
     public function viewadminsize()

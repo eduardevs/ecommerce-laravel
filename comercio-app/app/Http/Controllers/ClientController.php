@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
+use App\Models\Product;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class ClientController extends Controller
 {
     public function viewhomepage()
     {
-        return view('client.home');
+        $featuredproducts = Product::get();
+        return view('client.home')->with("featuredproducts", $featuredproducts);
     }
     public function viewaboutpage()
     {
@@ -75,13 +80,29 @@ class ClientController extends Controller
         return view('client.productbycategory');
     }
 
-    public function   viewproductdetailspage()
+    public function   viewproductdetailspage(Request $request, $id)
     {
-        return view('client.productdetails');
+        $product = Product::find($id);
+
+        return view('client.productdetails')->with('productdetail', $product);
     }
 
     public function   viewsearchproduct()
     {
         return view('client.searchproduct');
+    }
+
+    public function addproductcart(Request $request, $id)
+    {
+        $product = Product::find($id);
+
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldCart);
+        $cart->add($product, $request->input('size_id'), $request->input('color_id'), $request->input('p_qty'));
+
+        Session::put('cart', $cart);
+        Session::put('topCart', $cart->items);
+
+        return back();
     }
 }

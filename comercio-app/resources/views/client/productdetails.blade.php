@@ -22,19 +22,20 @@
                             <li>></li>
                             <li><a href="product-category.php?id=3&type=end-category">Watches</a></li>
                             <li>></li>
-                            <li>Amazfit GTS 3 Smart Watch for Android iPhone</li>
+                            <li>{{$productdetail->p_name}}</li>
                         </ul>
                     </div>
                     <div class="product">
                         <div class="row">
                             <div class="col-md-5">
                                 <ul class="prod-slider">
+                                    {{-- @foreach ($productdetail) --}}
                                     <li
-                                        style="background-image: url({{ asset('frontend/assets/uploads/product-featured-86.jpg') }});">
+                                        style="background-image: url({{ asset('/storage/productimages/' . $productdetail->p_featured_photo) }});">
                                         <a class="popup"
-                                            href="{{ asset('frontend/assets/uploads/product-featured-86.jpg') }}"></a>
+                                            href="{{ asset('/storage/productimages/' . $productdetail->p_featured_photo) }}"></a>
                                     </li>
-                                    <li
+                                    {{-- <li
                                         style="background-image: url({{ asset('frontend/assets/uploads/product_photos/112.jpg') }});">
                                         <a class="popup"
                                             href="{{ asset('frontend/assets/uploads/product_photos/112.jpg') }}"></a>
@@ -43,7 +44,7 @@
                                         style="background-image: url({{ asset('frontend/assets/uploads/product_photos/113.jpg') }});">
                                         <a class="popup"
                                             href="{{ asset('frontend/assets/uploads/product_photos/113.jpg') }}"></a>
-                                    </li>
+                                    </li> --}}
                                 </ul>
                                 <div id="prod-pager">
                                     <a data-slide-index="0" href="">
@@ -65,38 +66,36 @@
                             </div>
                             <div class="col-md-7">
                                 <div class="p-title">
-                                    <h2>Amazfit GTS 3 Smart Watch for Android iPhone</h2>
+                                    <h2>{{$productdetail->p_name}}</h2>
                                 </div>
                                 <div class="p-review">
                                     <div class="rating">
                                     </div>
                                 </div>
                                 <div class="p-short-des">
-                                    <p>
                                     <p
                                         style="padding: 0px; margin-top: 0px; text-rendering: optimizelegibility; margin-bottom: 0px !important; line-height: 32px !important;">
                                         <span id="productTitle" class="a-size-large product-title-word-break"
-                                            style="text-rendering: optimizelegibility; word-break: break-word; line-height: 32px !important; font-family: Roboto;">Alexa
-                                            Built-in, GPS Fitness Sports Watch with 150 Sports Modes, 1.75â€ AMOLED
-                                            Display, 12-Day Battery Life, Blood Oxygen Heart Rate Tracking</span>
-                                    </p>
+                                            style="text-rendering: optimizelegibility; word-break: break-word; line-height: 32px !important; font-family: Roboto;">{{$productdetail->p_description}}</span>
                                     </p>
                                 </div>
-                                <form action="" method="post">
+                                <form action="{{url('addproductcart', [$productdetail->id])}}" method="post">
+                                    @csrf
                                     <div class="p-quantity">
                                         <div class="row">
                                             <div class="col-md-12 mb_20">
                                                 Select Size <br>
                                                 <select name="size_id" class="form-control select2" style="width:auto;">
                                                     <option value="26">Free Size</option>
+                                                    <option value="26">38</option>
                                                 </select>
                                             </div>
                                             <div class="col-md-12">
                                                 Select Color <br>
                                                 <select name="color_id" class="form-control select2" style="width:auto;">
-                                                    <option value="2">Black</option>
-                                                    <option value="6">White</option>
-                                                    <option value="17">Gray</option>
+                                                    <option value="blue">Blue</option>
+                                                    <option value="orange">Orange</option>
+                                                    <option value="gray">Gray</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -104,12 +103,12 @@
                                     <div class="p-price">
                                         <span style="font-size:14px;">Product Price</span><br>
                                         <span>
-                                            <del>$199</del>
-                                            $179 </span>
+                                            <del>{{$productdetail->p_old_price}}</del>
+                                            {{$productdetail->p_current_price}} </span>
                                     </div>
-                                    <input type="hidden" name="p_current_price" value="179">
+                                    {{-- <input type="hidden" name="p_current_price" value="179"> --}}
                                     <input type="hidden" name="p_name"
-                                        value="Amazfit GTS 3 Smart Watch for Android iPhone">
+                                        value="{{$productdetail->p_name}}">
                                     <input type="hidden" name="p_featured_photo" value="product-featured-86.jpg">
                                     <div class="p-quantity">
                                         Quantity <br>
